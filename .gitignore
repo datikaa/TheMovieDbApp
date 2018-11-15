@@ -19,3 +19,4 @@ Thumbs.db
 build/
 .navigation
 captures/
+/app/src/main/java/com/datikaa/themoviedbapp/api/ApiKey.kt

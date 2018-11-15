@@ -5,13 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.datikaa.themoviedbapp.R
+import com.datikaa.themoviedbapp.TheMovieDbApplication
+import com.datikaa.themoviedbapp.api.model.Movie
+import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
+import com.datikaa.themoviedbapp.api.service.TheMovieDbService
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
 
 import kotlinx.android.synthetic.main.fragment_list.*
-
-// the fragment initialization parameters
-private const val ARG_SEARCHED_FOR = "arg_searched"
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 class ListFragment : BaseFragment() {
 
@@ -20,7 +26,7 @@ class ListFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            searchedFor = it.getString(ARG_SEARCHED_FOR, "")
+            searchedFor = it.getString(Companion.ARG_SEARCHED_FOR, "")
         }
     }
 
@@ -33,6 +39,22 @@ class ListFragment : BaseFragment() {
         textView_searchedFor.text = searchedFor
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        // TODO this shit doesnt belong to here just experimenting
+        val callResponse = TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
+        callResponse.enqueue(object: Callback<Movie> {
+            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                textView_searchedFor.text = response.body()?.title
+            }
+
+            override fun onFailure(call: Call<Movie>, t: Throwable) {
+                textView_searchedFor.text = "Fail"
+            }
+        })
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -41,7 +63,6 @@ class ListFragment : BaseFragment() {
          * @param searchedFor What the user searched for.
          * @return A new instance of fragment BaseFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(searchedFor: String) =
             HomeFragment().apply {
@@ -55,5 +76,8 @@ class ListFragment : BaseFragment() {
             Bundle().apply {
                 putString(ARG_SEARCHED_FOR, searchedFor)
             }
+
+        // the fragment initialization parameters
+        private const val ARG_SEARCHED_FOR = "arg_searched"
     }
 }
