@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.datikaa.themoviedbapp.R
 import com.datikaa.themoviedbapp.base.BaseFragment
+import com.datikaa.themoviedbapp.common.inflate
+
+import kotlinx.android.synthetic.main.fragment_list.*
 
 // the fragment initialization parameters
 private const val ARG_SEARCHED_FOR = "arg_searched"
@@ -23,13 +25,12 @@ class ListFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        return container?.inflate(R.layout.fragment_list)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val textView: TextView = view.findViewById(R.id.textView_searchedFor)
-        textView.text = searchedFor
+        textView_searchedFor.text = searchedFor
     }
 
     companion object {

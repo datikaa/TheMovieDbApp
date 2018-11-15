@@ -4,24 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.findNavController
 import com.datikaa.themoviedbapp.R
 import com.datikaa.themoviedbapp.base.BaseFragment
-import com.google.android.material.textfield.TextInputLayout
+import com.datikaa.themoviedbapp.common.inflate
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return container?.inflate(R.layout.fragment_home)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val button = view.findViewById<Button>(R.id.button_search)
-        val input = view.findViewById<TextInputLayout>(R.id.inputLayout_searchedFor)
-        button.setOnClickListener {
-            val bundle = ListFragment.getBundle(input.editText?.text.toString())
+
+        button_search.setOnClickListener {
+            val bundle = ListFragment.getBundle(inputLayout_searchedFor.editText?.text.toString())
             view.findNavController().navigate(R.id.openListFragmentFromHome, bundle)
         }
     }
