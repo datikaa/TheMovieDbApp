@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_search"
+            android:id="@+id/inputLayout_searchedFor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -26,8 +26,8 @@
             android:text="Search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/input_layout_search"
-            app:layout_constraintRight_toRightOf="@id/input_layout_search"
-            app:layout_constraintTop_toBottomOf="@id/input_layout_search"
-            android:id="@+id/button2"/>
+            app:layout_constraintLeft_toLeftOf="@id/inputLayout_searchedFor"
+            app:layout_constraintRight_toRightOf="@id/inputLayout_searchedFor"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout_searchedFor"
+            android:id="@+id/button_search"/>
 </androidx.constraintlayout.motion.widget.MotionLayout>
