@@ -11,6 +11,8 @@ import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
 import com.datikaa.themoviedbapp.api.service.TheMovieDbService
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.fragment_list.*
 import retrofit2.Call
@@ -42,17 +44,22 @@ class ListFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // TODO this shit doesnt belong to here just experimenting
-        val callResponse = TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
-        callResponse.enqueue(object: Callback<Movie> {
-            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                textView_searchedFor.text = response.body()?.title
-            }
+        TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { movie -> textView_searchedFor.text = movie.title }
 
-            override fun onFailure(call: Call<Movie>, t: Throwable) {
-                textView_searchedFor.text = "Fail"
-            }
-        })
+//        // TODO this shit doesnt belong to here just experimenting
+//        val callResponse = TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
+//        callResponse.enqueue(object: Callback<Movie> {
+//            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+//                textView_searchedFor.text = response.body()?.title
+//            }
+//
+//            override fun onFailure(call: Call<Movie>, t: Throwable) {
+//                textView_searchedFor.text = "Fail"
+//            }
+//        })
     }
 
     companion object {

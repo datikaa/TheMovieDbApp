@@ -5,11 +5,10 @@ import com.datikaa.themoviedbapp.api.interceptors.ApiKeyInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object TheMovieDbApi {
-
-    val retrofit: Retrofit
     val theMovieDbService: TheMovieDbService
 
     init{
@@ -26,9 +25,10 @@ object TheMovieDbApi {
                 .addInterceptor(ApiKeyInterceptor())
                 .build()
 
-        retrofit = Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()
 
