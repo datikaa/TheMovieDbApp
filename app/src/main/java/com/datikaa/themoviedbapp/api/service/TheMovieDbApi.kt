@@ -9,6 +9,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object TheMovieDbApi {
+
     val theMovieDbService: TheMovieDbService
 
     init{
@@ -34,7 +35,4 @@ object TheMovieDbApi {
 
         theMovieDbService = retrofit.create(TheMovieDbService::class.java)
     }
-
-
-
 }

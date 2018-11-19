@@ -4,26 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.transition.AutoTransition
+import androidx.transition.ChangeBounds
+import com.datikaa.themoviedbapp.PicSizeW500
+import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.R
-import com.datikaa.themoviedbapp.TheMovieDbApplication
 import com.datikaa.themoviedbapp.api.model.Movie
 import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
-import com.datikaa.themoviedbapp.api.service.TheMovieDbService
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
+import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.fragment_list.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import javax.inject.Inject
 
 class DetailFragment : BaseFragment() {
 
     private lateinit var searchedFor: String
+    private val disposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +38,23 @@ class DetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        textView_searchedFor.text = searchedFor
+        textView_movieTitle.text = searchedFor
+
+        sharedElementEnterTransition = AutoTransition().apply {
+            duration = 750
+        }
+        sharedElementReturnTransition= AutoTransition().apply {
+            duration = 750
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
+        disposable.add(TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { movie -> textView_searchedFor.text = movie.title }
+            .subscribe { movie -> movieResponse(movie) })
 
 //        // TODO this shit doesnt belong to here just experimenting
 //        val callResponse = TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
@@ -60,6 +67,16 @@ class DetailFragment : BaseFragment() {
 //                textView_searchedFor.text = "Fail"
 //            }
 //        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
+    }
+
+    private fun movieResponse(movie: Movie) {
+        textView_movieTitle.text = movie.title
+        Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path).into(imageView_background)
     }
 
     companion object {

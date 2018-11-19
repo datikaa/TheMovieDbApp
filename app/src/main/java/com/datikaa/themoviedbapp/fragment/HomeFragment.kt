@@ -31,7 +31,6 @@ class HomeFragment : BaseFragment() {
             view.findNavController().navigate(R.id.openListFragmentFromHome, bundle)
         }
 
-
         recycler_view.adapter = MovieListAdapter()
         recycler_view.layoutManager = LinearLayoutManager(context)
     }
