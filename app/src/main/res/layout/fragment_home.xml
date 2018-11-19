@@ -35,8 +35,10 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            tools:listitem="@layout/movie_card"
             app:layout_constraintLeft_toLeftOf="@id/button_search"
             app:layout_constraintRight_toRightOf="@id/button_search"
-            app:layout_constraintTop_toBottomOf="@id/button_search"/>
+            app:layout_constraintTop_toBottomOf="@id/button_search"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

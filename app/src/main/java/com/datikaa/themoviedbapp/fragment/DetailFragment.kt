@@ -21,14 +21,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class ListFragment : BaseFragment() {
+class DetailFragment : BaseFragment() {
 
     private lateinit var searchedFor: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            searchedFor = it.getString(Companion.ARG_SEARCHED_FOR, "")
+            searchedFor = it.getString(ARG_SEARCHED_FOR, "")
         }
     }
 

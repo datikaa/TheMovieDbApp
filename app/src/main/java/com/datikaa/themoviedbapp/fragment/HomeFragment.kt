@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.datikaa.themoviedbapp.R
-import com.datikaa.themoviedbapp.api.model.Result
+import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
@@ -27,7 +27,7 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button_search.setOnClickListener {
-            val bundle = ListFragment.getBundle(inputLayout_searchedFor.editText?.text.toString())
+            val bundle = DetailFragment.getBundle(inputLayout_searchedFor.editText?.text.toString())
             view.findNavController().navigate(R.id.openListFragmentFromHome, bundle)
         }
 
@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment() {
             .subscribe { list -> notifyAdapter(list) }
     }
 
-    private fun notifyAdapter(movieList: List<Result>) {
+    private fun notifyAdapter(movieList: List<UpcomingMovie>) {
         val adapter = recycler_view.adapter as MovieListAdapter?
         adapter?.list = movieList
         adapter?.notifyDataSetChanged()

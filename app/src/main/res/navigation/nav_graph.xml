@@ -16,7 +16,7 @@
     </fragment>
 
     <fragment android:id="@+id/listFragment"
-              android:name="com.datikaa.themoviedbapp.fragment.ListFragment"
+              android:name="com.datikaa.themoviedbapp.fragment.DetailFragment"
               android:label="ListFragment"
               tools:layout="@layout/fragment_list">
         <argument app:argType="string" android:name="searchedFor" />
