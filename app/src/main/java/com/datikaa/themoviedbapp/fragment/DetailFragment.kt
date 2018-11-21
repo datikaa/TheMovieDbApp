@@ -38,13 +38,6 @@ class DetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         textView_movieTitle.text = searchedFor
-
-        sharedElementEnterTransition = AutoTransition().apply {
-            duration = 750
-        }
-        sharedElementReturnTransition= AutoTransition().apply {
-            duration = 750
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,18 +47,6 @@ class DetailFragment : BaseFragment() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { movie -> movieResponse(movie) })
-
-//        // TODO this shit doesnt belong to here just experimenting
-//        val callResponse = TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
-//        callResponse.enqueue(object: Callback<GetMovieResponse> {
-//            override fun onResponse(call: Call<GetMovieResponse>, response: Response<GetMovieResponse>) {
-//                textView_searchedFor.text = response.body()?.title
-//            }
-//
-//            override fun onFailure(call: Call<GetMovieResponse>, t: Throwable) {
-//                textView_searchedFor.text = "Fail"
-//            }
-//        })
     }
 
     override fun onDestroy() {
