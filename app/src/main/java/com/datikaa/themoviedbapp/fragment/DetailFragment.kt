@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.transition.AutoTransition
-import androidx.transition.ChangeBounds
 import com.datikaa.themoviedbapp.PicSizeW500
 import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.R
-import com.datikaa.themoviedbapp.api.model.Movie
+import com.datikaa.themoviedbapp.api.model.GetMovieResponse
 import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
@@ -58,12 +57,12 @@ class DetailFragment : BaseFragment() {
 
 //        // TODO this shit doesnt belong to here just experimenting
 //        val callResponse = TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
-//        callResponse.enqueue(object: Callback<Movie> {
-//            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+//        callResponse.enqueue(object: Callback<GetMovieResponse> {
+//            override fun onResponse(call: Call<GetMovieResponse>, response: Response<GetMovieResponse>) {
 //                textView_searchedFor.text = response.body()?.title
 //            }
 //
-//            override fun onFailure(call: Call<Movie>, t: Throwable) {
+//            override fun onFailure(call: Call<GetMovieResponse>, t: Throwable) {
 //                textView_searchedFor.text = "Fail"
 //            }
 //        })
@@ -74,9 +73,9 @@ class DetailFragment : BaseFragment() {
         disposable.dispose()
     }
 
-    private fun movieResponse(movie: Movie) {
-        textView_movieTitle.text = movie.title
-        Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path).into(imageView_background)
+    private fun movieResponse(getMovieResponse: GetMovieResponse) {
+        textView_movieTitle.text = getMovieResponse.title
+        Picasso.get().load(PicassoBaseUrl + PicSizeW500 + getMovieResponse.backdrop_path).into(imageView_background)
     }
 
     companion object {

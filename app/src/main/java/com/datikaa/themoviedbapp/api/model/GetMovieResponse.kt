@@ -1,6 +1,6 @@
 package com.datikaa.themoviedbapp.api.model
 
-data class Movie(
+data class GetMovieResponse(
     val adult: Boolean?,
     val backdrop_path: String?,
     val belongs_to_collection: Any?,
