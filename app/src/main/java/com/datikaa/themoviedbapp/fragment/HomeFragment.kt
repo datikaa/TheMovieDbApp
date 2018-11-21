@@ -28,7 +28,7 @@ class HomeFragment : BaseFragment() {
 
         button_search.setOnClickListener {
             val bundle = DetailFragment.getBundle(inputLayout_searchedFor.editText?.text.toString())
-            view.findNavController().navigate(R.id.openListFragmentFromHome, bundle)
+            view.findNavController().navigate(R.id.openDetailFragmentFromHome, bundle)
         }
 
         recycler_view.adapter = MovieListAdapter()

@@ -44,7 +44,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
                         itemView.imageView_background to "imageView_background_transition",
                         itemView.movie_title to "textView_movieTitle_transition")
                     val bundle = DetailFragment.getBundle(movieId.toString())
-                    it.findNavController().navigate(R.id.openListFragmentFromHome, bundle, null, extras)
+                    it.findNavController().navigate(R.id.openDetailFragmentFromHome, bundle, null, extras)
                 }
             }
         }

@@ -9,7 +9,7 @@
               android:name="com.datikaa.themoviedbapp.fragment.HomeFragment"
               android:label="HomeFragment"
               tools:layout="@layout/fragment_home">
-        <action android:id="@+id/openListFragmentFromHome" app:destination="@id/listFragment"
+        <action android:id="@+id/openDetailFragmentFromHome" app:destination="@id/listFragment"
                 app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"
         />
