@@ -1,10 +1,9 @@
-package com.datikaa.themoviedbapp.fragment
+package com.datikaa.themoviedbapp.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.transition.AutoTransition
 import com.datikaa.themoviedbapp.PicSizeW500
 import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.R
@@ -12,6 +11,7 @@ import com.datikaa.themoviedbapp.api.model.GetMovieResponse
 import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
+import com.datikaa.themoviedbapp.ui.home.HomeFragment
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

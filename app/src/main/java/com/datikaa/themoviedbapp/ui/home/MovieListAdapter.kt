@@ -1,4 +1,4 @@
-package com.datikaa.themoviedbapp.ui
+package com.datikaa.themoviedbapp.ui.home
 
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +10,12 @@ import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.R
 import com.datikaa.themoviedbapp.common.inflate
-import com.datikaa.themoviedbapp.fragment.DetailFragment
+import com.datikaa.themoviedbapp.ui.detail.DetailFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_card.view.*
+import androidx.recyclerview.widget.DiffUtil
+
+
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
@@ -31,12 +34,23 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
         holder.bind(list[position])
     }
 
+    fun dispatchChanges(upcomingMovies: List<UpcomingMovie>) {
+        val diffCallback = DiffUtilUpcomingMovies(upcomingMovies, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        list = upcomingMovies
+        diffResult.dispatchUpdatesTo(this)
+    }
+
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         fun bind(movie: UpcomingMovie) {
             itemView.movie_title.text = movie.title ?: "Error"
             itemView.movie_id.text = movie.id?.toString() ?: "Error"
 
-            Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path).into(itemView.imageView_background)
+            Picasso.get()
+                .load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path)
+                .placeholder(R.drawable.pic_loading_placeholder)
+                .into(itemView.imageView_background)
 
             itemView.setOnClickListener {
                 movie.id.let { movieId ->

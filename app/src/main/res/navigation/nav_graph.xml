@@ -6,7 +6,7 @@
             app:startDestination="@id/homeFragment">
 
     <fragment android:id="@+id/homeFragment"
-              android:name="com.datikaa.themoviedbapp.fragment.HomeFragment"
+              android:name="com.datikaa.themoviedbapp.ui.home.HomeFragment"
               android:label="HomeFragment"
               tools:layout="@layout/fragment_home">
         <action android:id="@+id/openDetailFragmentFromHome" app:destination="@id/listFragment"
@@ -16,7 +16,7 @@
     </fragment>
 
     <fragment android:id="@+id/listFragment"
-              android:name="com.datikaa.themoviedbapp.fragment.DetailFragment"
+              android:name="com.datikaa.themoviedbapp.ui.detail.DetailFragment"
               android:label="ListFragment"
               tools:layout="@layout/fragment_list">
         <argument app:argType="string" android:name="searchedFor" />
