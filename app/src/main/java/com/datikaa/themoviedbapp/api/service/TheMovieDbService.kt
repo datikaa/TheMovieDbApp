@@ -11,11 +11,11 @@ import retrofit2.http.Path
 interface TheMovieDbService {
 
     @GET("movie/{movie_id}")
-    fun getMovie(@Path("movie_id") id: String): Deferred<Response<Movie>>
+    fun getMovieAsync(@Path("movie_id") id: String): Deferred<Response<Movie>>
 
     @GET("movie/upcoming")
-    fun getLatest(): Deferred<Response<UpcomingResponse>>
+    fun getLatestAsync(): Deferred<Response<UpcomingResponse>>
 
     @GET("configuration")
-    fun getConfiguration(): Deferred<Response<ConfigurationResponse>>
+    fun getConfigurationAsync(): Deferred<Response<ConfigurationResponse>>
 }
