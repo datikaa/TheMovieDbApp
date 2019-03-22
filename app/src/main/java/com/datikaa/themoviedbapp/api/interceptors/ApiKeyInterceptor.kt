@@ -1,6 +1,6 @@
 package com.datikaa.themoviedbapp.api.interceptors
 
-import com.datikaa.themoviedbapp.api.ApiKey
+import com.datikaa.themoviedbapp.tmdbApiKey
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -10,7 +10,7 @@ class ApiKeyInterceptor : Interceptor {
         val originalHttpUrl = original.url()
 
         val url = originalHttpUrl.newBuilder()
-            .addQueryParameter("api_key", ApiKey) // TODO - maybe an API key should be somewhere else?
+            .addQueryParameter("api_key", tmdbApiKey)
             .build()
 
         val requestBuilder = original.newBuilder()
@@ -19,5 +19,4 @@ class ApiKeyInterceptor : Interceptor {
         val request = requestBuilder.build()
         return chain.proceed(request)
     }
-
 }
