@@ -1,6 +1,6 @@
 package com.datikaa.themoviedbapp.api.model
 
-data class GetUpcomingResponse(
+data class UpcomingResponse(
     val dates: Dates?,
     val page: Int?,
     val results: List<UpcomingMovie>?,

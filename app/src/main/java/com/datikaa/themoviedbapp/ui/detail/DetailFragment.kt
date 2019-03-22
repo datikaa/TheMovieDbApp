@@ -4,31 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.datikaa.themoviedbapp.PicSizeW500
 import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.R
-import com.datikaa.themoviedbapp.api.model.GetMovieResponse
-import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
+import com.datikaa.themoviedbapp.api.model.Movie
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
 import com.datikaa.themoviedbapp.ui.home.HomeFragment
 import com.squareup.picasso.Picasso
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class DetailFragment : BaseFragment() {
 
     private lateinit var searchedFor: String
-    private val disposable: CompositeDisposable = CompositeDisposable()
+    private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             searchedFor = it.getString(ARG_SEARCHED_FOR, "")
         }
+
+        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
+        viewModel.fetchMovie(searchedFor)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,25 +39,16 @@ class DetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         textView_movieTitle.text = searchedFor
+
+        viewModel.movie.observe(this, Observer<Movie> { movie ->
+            textView_movieTitle.text = movie.title
+            Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path).into(imageView_background)
+        })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        disposable.add(TheMovieDbApi.theMovieDbService.getMovie(searchedFor)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { movie -> movieResponse(movie) })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        disposable.dispose()
-    }
-
-    private fun movieResponse(getMovieResponse: GetMovieResponse) {
-        textView_movieTitle.text = getMovieResponse.title
-        Picasso.get().load(PicassoBaseUrl + PicSizeW500 + getMovieResponse.backdrop_path).into(imageView_background)
+    override fun onDestroyView() {
+        viewModel.movie.removeObservers(this)
+        super.onDestroyView()
     }
 
     companion object {

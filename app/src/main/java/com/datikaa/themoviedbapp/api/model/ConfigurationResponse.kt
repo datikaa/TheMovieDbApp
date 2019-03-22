@@ -1,6 +1,6 @@
 package com.datikaa.themoviedbapp.api.model
 
-data class GetConfigurationResponse(
+data class ConfigurationResponse(
     val change_keys: List<String>,
     val images: Images
 )

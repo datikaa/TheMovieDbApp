@@ -17,14 +17,14 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
 
-    val adapter = MovieListAdapter()
+    private val adapter = MovieListAdapter()
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val  viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        viewModel.getUpcomingMovies().observe(this, Observer<List<UpcomingMovie>> { upcomingMovies ->
-            adapter.dispatchChanges(upcomingMovies)
-        })
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
+        viewModel.fetchUpcomingMovies()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,5 +46,14 @@ class HomeFragment : BaseFragment() {
         recycler_view.adapter = adapter
         recycler_view.layoutManager = LinearLayoutManager(context)
         recycler_view.addItemDecoration(HomeListItemDecoration())
+
+        viewModel.upcomingMovies.observe(this, Observer<List<UpcomingMovie>> { upcomingMovies ->
+            adapter.dispatchChanges(upcomingMovies)
+        })
+    }
+
+    override fun onDestroyView() {
+        viewModel.upcomingMovies.removeObservers(this)
+        super.onDestroyView()
     }
 }
