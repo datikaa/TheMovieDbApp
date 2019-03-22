@@ -1,5 +1,6 @@
 package com.datikaa.themoviedbapp.repository
 
+import android.util.Log
 import com.datikaa.themoviedbapp.api.model.Movie
 import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
@@ -10,11 +11,11 @@ class MovieRepository : BaseRepository() {
 
     private val api: TheMovieDbService = TheMovieDbApi.theMovieDbService
 
-    suspend fun getPopularMovies(): MutableList<UpcomingMovie>? {
+    suspend fun getUpcomingMovies(): MutableList<UpcomingMovie>? {
         //safeApiCall is defined in BaseRepository.kt
         val movieResponse = safeApiCall(
             call = { api.getLatest().await() },
-            errorMessage = "Error Fetching Popular Movies"
+            onError = { Log.d("ApiError", "${it.message}") }
         )
         return movieResponse?.results?.toMutableList()
     }
@@ -23,7 +24,7 @@ class MovieRepository : BaseRepository() {
         //safeApiCall is defined in BaseRepository.kt
         return safeApiCall(
             call = { api.getMovie(id).await() },
-            errorMessage = "Error Fetching Popular Movies"
+            onError = { Log.d("ApiError", "${it.message}") }
         )
     }
 }

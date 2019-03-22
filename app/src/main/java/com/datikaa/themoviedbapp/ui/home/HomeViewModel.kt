@@ -15,7 +15,7 @@ class HomeViewModel : ViewModel() {
 
     fun fetchUpcomingMovies() {
         viewModelScope.launch {
-            val popularMovies = repository.getPopularMovies()
+            val popularMovies = repository.getUpcomingMovies()
             upcomingMovies.postValue(popularMovies)
         }
     }
