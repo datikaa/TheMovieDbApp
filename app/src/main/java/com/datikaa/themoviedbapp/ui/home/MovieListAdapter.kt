@@ -19,11 +19,21 @@ import androidx.recyclerview.widget.DiffUtil
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
-    var list: List<UpcomingMovie> = listOf()
+    private var list: List<UpcomingMovie> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = parent.inflate(R.layout.movie_card)
-        return ViewHolder(view)
+        return ViewHolder(view).apply {
+            itemView.setOnClickListener {
+                list[adapterPosition].id.let { movieId ->
+                    val extras = FragmentNavigatorExtras(
+                        itemView.imageView_background to "imageView_background_transition",
+                        itemView.movie_title to "textView_movieTitle_transition")
+                    val bundle = DetailFragment.getBundle(movieId.toString())
+                    it.findNavController().navigate(R.id.openDetailFragmentFromHome, bundle, null, extras)
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -51,16 +61,6 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
                 .load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path)
                 .placeholder(R.drawable.pic_loading_placeholder)
                 .into(itemView.imageView_background)
-
-            itemView.setOnClickListener {
-                movie.id.let { movieId ->
-                    val extras = FragmentNavigatorExtras(
-                        itemView.imageView_background to "imageView_background_transition",
-                        itemView.movie_title to "textView_movieTitle_transition")
-                    val bundle = DetailFragment.getBundle(movieId.toString())
-                    it.findNavController().navigate(R.id.openDetailFragmentFromHome, bundle, null, extras)
-                }
-            }
         }
     }
 }
