@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.datikaa.themoviedbapp.PicSizeW500
 import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.R
@@ -28,7 +28,7 @@ class DetailFragment : BaseFragment() {
             searchedFor = it.getString(ARG_SEARCHED_FOR, "")
         }
 
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         viewModel.fetchMovie(searchedFor)
     }
 
