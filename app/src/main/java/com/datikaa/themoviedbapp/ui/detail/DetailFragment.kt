@@ -32,9 +32,8 @@ class DetailFragment : BaseFragment() {
         viewModel.fetchMovie(searchedFor)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return container?.inflate(R.layout.fragment_list)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
+            = container?.inflate(R.layout.fragment_list)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +41,8 @@ class DetailFragment : BaseFragment() {
 
         viewModel.movie.observe(this, Observer<Movie> { movie ->
             textView_movieTitle.text = movie.title
-            Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path).into(imageView_background)
+            Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path)
+                .into(imageView_background)
         })
     }
 
