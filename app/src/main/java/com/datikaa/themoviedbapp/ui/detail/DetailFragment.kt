@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.datikaa.themoviedbapp.PicSizeW500
 import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.R
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 class DetailFragment : BaseFragment() {
 
     private lateinit var searchedFor: String
-    private lateinit var viewModel: DetailViewModel
+    private val viewModel: DetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +28,15 @@ class DetailFragment : BaseFragment() {
             searchedFor = it.getString(ARG_SEARCHED_FOR, "")
         }
 
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
+        DetailViewModel()
         viewModel.fetchMovie(searchedFor)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return container?.inflate(R.layout.fragment_list)
     }
 
@@ -42,7 +46,8 @@ class DetailFragment : BaseFragment() {
 
         viewModel.movie.observe(this, Observer<Movie> { movie ->
             textView_movieTitle.text = movie.title
-            Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path).into(imageView_background)
+            Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path)
+                .into(imageView_background)
         })
     }
 
