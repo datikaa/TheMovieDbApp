@@ -32,13 +32,8 @@ class DetailFragment : BaseFragment() {
         viewModel.fetchMovie(searchedFor)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return container?.inflate(R.layout.fragment_list)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
+            = container?.inflate(R.layout.fragment_list)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
