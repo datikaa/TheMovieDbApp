@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.transition.TransitionInflater
 import com.datikaa.themoviedbapp.PicSizeW500
 import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.R
@@ -28,7 +29,8 @@ class DetailFragment : BaseFragment() {
             searchedFor = it.getString(ARG_SEARCHED_FOR, "")
         }
 
-        DetailViewModel()
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
         viewModel.fetchMovie(searchedFor)
     }
 

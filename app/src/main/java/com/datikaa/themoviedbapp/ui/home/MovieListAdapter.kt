@@ -2,7 +2,9 @@ package com.datikaa.themoviedbapp.ui.home
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.datikaa.themoviedbapp.PicSizeW500
@@ -25,10 +27,10 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
         val view = parent.inflate(R.layout.movie_card)
         return ViewHolder(view).apply {
             itemView.setOnClickListener {
-                list[adapterPosition].id.let { movieId ->
+                list[adapterPosition].id.also { movieId ->
                     val extras = FragmentNavigatorExtras(
-                        itemView.imageView_background to "imageView_background_transition",
-                        itemView.movie_title to "textView_movieTitle_transition")
+                        itemView.imageView_background to "imageView_background",
+                        itemView.movie_title to "textView_movieTitle")
                     val bundle = DetailFragment.getBundle(movieId.toString())
                     it.findNavController().navigate(R.id.openDetailFragmentFromHome, bundle, null, extras)
                 }
