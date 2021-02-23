@@ -1,5 +1,8 @@
 package com.datikaa.themoviedbapp.api.model
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class Movie(
     val adult: Boolean?,
     val backdrop_path: String?,

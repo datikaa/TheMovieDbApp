@@ -13,9 +13,11 @@ import com.datikaa.themoviedbapp.R
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
 import com.datikaa.themoviedbapp.ui.home.HomeFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 import kotlinx.android.synthetic.main.fragment_list.*
 
+@AndroidEntryPoint
 class DetailFragment : BaseFragment() {
 
     private lateinit var searchedFor: String

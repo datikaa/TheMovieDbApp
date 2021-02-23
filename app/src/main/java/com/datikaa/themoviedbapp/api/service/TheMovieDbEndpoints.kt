@@ -8,14 +8,14 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface TheMovieDbService {
+interface TheMovieDbEndpoints {
 
     @GET("movie/{movie_id}")
-    suspend fun getMovieAsync(@Path("movie_id") id: String): Response<Movie>
+    suspend fun getMovieAsync(@Path("movie_id") id: String): Movie
 
     @GET("movie/upcoming")
-    suspend fun getLatestAsync(): Response<UpcomingResponse>
+    suspend fun getLatestAsync(): UpcomingResponse
 
     @GET("configuration")
-    suspend fun getConfigurationAsync(): Response<ConfigurationResponse>
+    suspend fun getConfigurationAsync(): ConfigurationResponse
 }

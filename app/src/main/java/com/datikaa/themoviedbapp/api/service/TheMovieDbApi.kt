@@ -2,14 +2,16 @@ package com.datikaa.themoviedbapp.api.service
 
 import com.datikaa.themoviedbapp.BuildConfig
 import com.datikaa.themoviedbapp.api.interceptors.ApiKeyInterceptor
+import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 
-object TheMovieDbApi {
+class TheMovieDbApi {
 
-    val theMovieDbService: TheMovieDbService
+    val endpoints: TheMovieDbEndpoints
 
     init{
         val okHttpLoggingInterceptor =
@@ -31,6 +33,6 @@ object TheMovieDbApi {
             .client(okHttpClient)
             .build()
 
-        theMovieDbService = retrofit.create(TheMovieDbService::class.java)
+        endpoints = retrofit.create()
     }
 }

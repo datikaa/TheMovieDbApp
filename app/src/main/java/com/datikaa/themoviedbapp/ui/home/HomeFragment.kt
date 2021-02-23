@@ -13,8 +13,10 @@ import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
 import com.datikaa.themoviedbapp.ui.detail.DetailFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
     private val adapter = MovieListAdapter()
