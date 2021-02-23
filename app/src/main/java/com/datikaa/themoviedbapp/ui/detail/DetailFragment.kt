@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.transition.TransitionInflater
+import coil.load
 import com.datikaa.themoviedbapp.PicSizeW500
-import com.datikaa.themoviedbapp.PicassoBaseUrl
+import com.datikaa.themoviedbapp.ImagesBaseUrl
 import com.datikaa.themoviedbapp.R
-import com.datikaa.themoviedbapp.api.model.Movie
 import com.datikaa.themoviedbapp.base.BaseFragment
 import com.datikaa.themoviedbapp.common.inflate
 import com.datikaa.themoviedbapp.ui.home.HomeFragment
-import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -41,10 +39,9 @@ class DetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         textView_movieTitle.text = searchedFor
 
-        viewModel.movie.observe(this, Observer<Movie> { movie ->
+        viewModel.movie.observe(this.viewLifecycleOwner, { movie ->
             textView_movieTitle.text = movie.title
-            Picasso.get().load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path)
-                .into(imageView_background)
+            imageView_background.load(ImagesBaseUrl + PicSizeW500 + movie.backdrop_path)
         })
     }
 

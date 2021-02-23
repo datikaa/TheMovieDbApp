@@ -2,7 +2,6 @@ package com.datikaa.themoviedbapp.api.service
 
 import com.datikaa.themoviedbapp.BuildConfig
 import com.datikaa.themoviedbapp.api.interceptors.ApiKeyInterceptor
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,7 +28,6 @@ object TheMovieDbApi {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(MoshiConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .build()
 

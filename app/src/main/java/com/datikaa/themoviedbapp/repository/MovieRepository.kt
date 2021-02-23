@@ -14,7 +14,7 @@ class MovieRepository : BaseRepository() {
     suspend fun getUpcomingMovies(): MutableList<UpcomingMovie>? {
         //safeApiCall is defined in BaseRepository.kt
         val movieResponse = safeApiCall(
-            call = { api.getLatestAsync().await() },
+            call = { api.getLatestAsync() },
             onError = { Log.d("ApiError", "${it.message}") }
         )
         return movieResponse?.results?.toMutableList()
@@ -23,7 +23,7 @@ class MovieRepository : BaseRepository() {
     suspend fun getMovie(id: String): Movie? {
         //safeApiCall is defined in BaseRepository.kt
         return safeApiCall(
-            call = { api.getMovieAsync(id).await() },
+            call = { api.getMovieAsync(id) },
             onError = { Log.d("ApiError", "${it.message}") }
         )
     }

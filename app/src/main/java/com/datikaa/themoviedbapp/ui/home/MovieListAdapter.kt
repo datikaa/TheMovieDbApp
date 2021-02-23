@@ -2,21 +2,18 @@ package com.datikaa.themoviedbapp.ui.home
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
-import com.datikaa.themoviedbapp.PicSizeW500
-import com.datikaa.themoviedbapp.PicassoBaseUrl
 import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.R
 import com.datikaa.themoviedbapp.common.inflate
 import com.datikaa.themoviedbapp.ui.detail.DetailFragment
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_card.view.*
 import androidx.recyclerview.widget.DiffUtil
-
+import coil.load
+import com.datikaa.themoviedbapp.ImagesBaseUrl
+import com.datikaa.themoviedbapp.PicSizeW500
 
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
@@ -58,11 +55,10 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
         fun bind(movie: UpcomingMovie) {
             itemView.movie_title.text = movie.title ?: "Error"
             itemView.movie_id.text = movie.id?.toString() ?: "Error"
-
-            Picasso.get()
-                .load(PicassoBaseUrl + PicSizeW500 + movie.backdrop_path)
-                .placeholder(R.drawable.pic_loading_placeholder)
-                .into(itemView.imageView_background)
+            itemView.imageView_background.load(ImagesBaseUrl + PicSizeW500 + movie.backdrop_path) {
+                placeholder(R.drawable.pic_loading_placeholder)
+                crossfade(true)
+            }
         }
     }
 }
