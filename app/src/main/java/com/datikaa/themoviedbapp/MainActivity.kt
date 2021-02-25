@@ -2,29 +2,33 @@ package com.datikaa.themoviedbapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.activity.compose.setContent
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.HiltViewModelFactory
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.datikaa.themoviedbapp.ui.compose.HomeComposable
+import com.datikaa.themoviedbapp.ui.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        navController = Navigation.findNavController(this, R.id.navHostFragment)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        setContent {
+            val navController = rememberNavController()
+            NavHost(
+                navController = navController,
+                startDestination = "home"
+            ) {
+                composable("home") {
+                    HiltViewModelFactory(LocalContext.current, it)
+                    HomeComposable(navController, it.hiltViewModel())
+                }
+            }
+        }
     }
 }
