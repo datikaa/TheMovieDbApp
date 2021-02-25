@@ -102,6 +102,7 @@ dependencies {
     debugImplementation "org.jetbrains.kotlin:kotlin-reflect:1.4.30"
 
     implementation "dev.chrisbanes.accompanist:accompanist-coil:0.6.0"
+    implementation "dev.chrisbanes.accompanist:accompanist-insets:0.6.0"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
