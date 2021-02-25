@@ -17,7 +17,7 @@ class HomeViewModel @Inject constructor(
     private val repository : MovieRepository,
 ) : ViewModel() {
 
-    private val _upcomingMovies = MutableSharedFlow<MutableList<UpcomingMovie>>()
+    private val _upcomingMovies = MutableSharedFlow<MutableList<UpcomingMovie>>(replay = 1)
     val upcomingMovies: Flow<MutableList<UpcomingMovie>> = _upcomingMovies
 
     init {

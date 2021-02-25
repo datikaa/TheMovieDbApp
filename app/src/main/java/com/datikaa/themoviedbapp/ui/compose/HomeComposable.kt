@@ -34,7 +34,7 @@ import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.ui.home.HomeViewModel
 import dev.chrisbanes.accompanist.coil.CoilImage
 import dev.chrisbanes.accompanist.insets.LocalWindowInsets
-import dev.chrisbanes.accompanist.insets.navigationBarsPadding
+import dev.chrisbanes.accompanist.insets.navigationBarsWithImePadding
 import dev.chrisbanes.accompanist.insets.statusBarsPadding
 import dev.chrisbanes.accompanist.insets.toPaddingValues
 
@@ -43,33 +43,38 @@ import dev.chrisbanes.accompanist.insets.toPaddingValues
 fun HomeComposable(navController: NavController, viewModel: HomeViewModel) {
     val itemsState = viewModel.upcomingMovies.collectAsState(emptyList())
 
-    Surface {
-        Box(Modifier.fillMaxSize()) {
-            var topAppBarSize by remember { mutableStateOf(0) }
-
-            LazyColumn(
-                contentPadding = LocalWindowInsets.current.systemBars.toPaddingValues(
-                    top = false,
-                    additionalTop = with(LocalDensity.current) { topAppBarSize.toDp() + 8.dp },
-                    additionalBottom = 8.dp,
-                    additionalStart = 8.dp,
-                    additionalEnd = 8.dp,
-                ),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+    Scaffold(
+        topBar = {
+            Surface(
+                color = Color.White,
+                elevation = 4.dp,
             ) {
-                items(itemsState.value) {
-                    HomeItemComposable(upcomingMovie = it)
-                }
+                TopAppBar(
+                    elevation = 0.dp,
+                    backgroundColor = Color.Transparent,
+                    modifier = Modifier.statusBarsPadding(),
+                    title = { Text(text = "Title", Modifier.padding(LocalWindowInsets.current.navigationBars.toPaddingValues(
+                        top = false,
+                        start = true,
+                        end = false,
+                        bottom = false,
+                    ))) })
             }
-            InsetAwareTopAppBar(
-                title = { Text("Title") },
-                backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    // We use onSizeChanged to track the app bar height, and update
-                    // our state above
-                    .onSizeChanged { topAppBarSize = it.height }
-            )
+        }) {
+
+        LazyColumn(
+            contentPadding = LocalWindowInsets.current.navigationBars.toPaddingValues(
+                top = false,
+                additionalStart = 8.dp,
+                additionalEnd = 8.dp,
+                additionalTop = 8.dp,
+                additionalBottom = 8.dp,
+            ),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(itemsState.value) {
+                HomeItemComposable(upcomingMovie = it)
+            }
         }
     }
 }
@@ -104,7 +109,7 @@ fun HomeItemComposable(upcomingMovie: UpcomingMovie) {
                 text = upcomingMovie.title ?: "",
                 modifier = Modifier
                     .constrainAs(title) {
-                        top.linkTo(parent.top, margin = 12.dp)
+                        top.linkTo(parent.top, margin = 0.dp)
                         start.linkTo(parent.start, margin = 12.dp)
                     }
             )
@@ -118,38 +123,5 @@ fun HomeItemComposable(upcomingMovie: UpcomingMovie) {
                     }
             )
         }
-    }
-}
-
-/**
- * A wrapper around [TopAppBar] which uses [Modifier.statusBarsPadding] to shift the app bar's
- * contents down, but still draws the background behind the status bar too.
- */
-@Composable
-fun InsetAwareTopAppBar(
-    title: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    navigationIcon: @Composable (() -> Unit)? = null,
-    actions: @Composable RowScope.() -> Unit = {},
-    backgroundColor: Color = MaterialTheme.colors.primarySurface,
-    contentColor: Color = contentColorFor(backgroundColor),
-    elevation: Dp = 4.dp
-) {
-    Surface(
-        color = backgroundColor,
-        elevation = elevation,
-        modifier = modifier
-    ) {
-        TopAppBar(
-            title = title,
-            navigationIcon = navigationIcon,
-            actions = actions,
-            backgroundColor = Color.Transparent,
-            contentColor = contentColor,
-            elevation = 0.dp,
-            modifier = Modifier
-                .statusBarsPadding()
-                .navigationBarsPadding(bottom = false)
-        )
     }
 }
