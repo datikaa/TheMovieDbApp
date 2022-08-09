@@ -5,15 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.repository.MovieRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+class HomeViewModel(
+    private val handle: SavedStateHandle,
     private val repository : MovieRepository,
 ) : ViewModel() {
 

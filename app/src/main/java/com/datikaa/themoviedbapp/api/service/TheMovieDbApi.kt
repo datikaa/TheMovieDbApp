@@ -2,7 +2,6 @@ package com.datikaa.themoviedbapp.api.service
 
 import com.datikaa.themoviedbapp.BuildConfig
 import com.datikaa.themoviedbapp.api.interceptors.ApiKeyInterceptor
-import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -4,11 +4,9 @@ import android.util.Log
 import com.datikaa.themoviedbapp.api.model.Movie
 import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.api.service.TheMovieDbApi
-import com.datikaa.themoviedbapp.api.service.TheMovieDbEndpoints
 import com.datikaa.themoviedbapp.base.BaseRepository
-import javax.inject.Inject
 
-class MovieRepository @Inject constructor(
+class MovieRepository constructor(
     private val tmdbApi: TheMovieDbApi,
 ) : BaseRepository() {
 

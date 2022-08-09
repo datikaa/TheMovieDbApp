@@ -1,105 +1,79 @@
 package com.datikaa.themoviedbapp.ui.compose
 
-import android.print.PrintAttributes
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.hilt.navigation.HiltViewModelFactory
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.datikaa.themoviedbapp.ImagesBaseUrl
 import com.datikaa.themoviedbapp.PicSizeW500
 import com.datikaa.themoviedbapp.R
 import com.datikaa.themoviedbapp.api.model.UpcomingMovie
 import com.datikaa.themoviedbapp.ui.home.HomeViewModel
-import dev.chrisbanes.accompanist.coil.CoilImage
-import dev.chrisbanes.accompanist.insets.LocalWindowInsets
-import dev.chrisbanes.accompanist.insets.navigationBarsWithImePadding
-import dev.chrisbanes.accompanist.insets.statusBarsPadding
-import dev.chrisbanes.accompanist.insets.toPaddingValues
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeComposable(navController: NavController, viewModel: HomeViewModel) {
+fun HomeComposable(viewModel: HomeViewModel) {
     val itemsState = viewModel.upcomingMovies.collectAsState(emptyList())
 
     Scaffold(
         topBar = {
-            Surface(
-                color = Color.White,
-                elevation = 4.dp,
-            ) {
-                TopAppBar(
-                    elevation = 0.dp,
-                    backgroundColor = Color.Transparent,
-                    modifier = Modifier.statusBarsPadding(),
-                    title = { Text(text = "Title", Modifier.padding(LocalWindowInsets.current.navigationBars.toPaddingValues(
-                        top = false,
-                        start = true,
-                        end = false,
-                        bottom = false,
-                    ))) })
-            }
-        }) {
-
+            SmallTopAppBar(
+                modifier = Modifier.statusBarsPadding(),
+                title = { Text(text = "Title") })
+        }
+    ) {
         LazyColumn(
-            contentPadding = LocalWindowInsets.current.navigationBars.toPaddingValues(
-                top = false,
-                additionalStart = 8.dp,
-                additionalEnd = 8.dp,
-                additionalTop = 8.dp,
-                additionalBottom = 8.dp,
+            contentPadding = PaddingValues(
+                top = 8.dp,
+                start = 8.dp,
+                end = 8.dp,
+                bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding() + 8.dp
             ),
             verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(it)
         ) {
-            items(itemsState.value) {
-                HomeItemComposable(upcomingMovie = it)
+            items(itemsState.value) { movies ->
+                HomeItemComposable(upcomingMovie = movies)
             }
         }
     }
 }
 
 @Composable
-internal inline fun <reified T : ViewModel> NavBackStackEntry.hiltViewModel(): T {
-    return ViewModelProvider(
-        this.viewModelStore,
-        HiltViewModelFactory(LocalContext.current, this)
-    ).get(T::class.java)
-}
-
-@Composable
 fun HomeItemComposable(upcomingMovie: UpcomingMovie) {
     Card(modifier = Modifier.aspectRatio(1.77f)) {
-        CoilImage(
-            data = ImagesBaseUrl + PicSizeW500 + upcomingMovie.backdrop_path,
-            fadeIn = true,
+
+        AsyncImage(
+            model = ImagesBaseUrl + PicSizeW500 + upcomingMovie.backdrop_path,
             contentScale = ContentScale.Crop,
             contentDescription = null,
-            loading = {
-                val image: Painter = painterResource(id = R.drawable.pic_loading_placeholder)
-                Image(painter = image, contentDescription = "")
-            },
-            modifier = Modifier.fillMaxWidth()
+            placeholder = painterResource(id = R.drawable.pic_loading_placeholder),
+            modifier = Modifier.fillMaxWidth(),
         )
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (title, id) = createRefs()
