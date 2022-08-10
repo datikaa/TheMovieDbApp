@@ -14,4 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-include ':app'
+enableFeaturePreview("VERSION_CATALOGS")
+
+include("app")
