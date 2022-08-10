@@ -16,6 +16,8 @@ androidx-activity = "1.5.1"
 androidx-fragment = "1.5.1"
 androiddesugarlibs = "1.1.5"
 
+lifecycle = "2.6.0-alpha01"
+
 #Screenshot testing
 paparazzi = "1.0.0"
 
@@ -44,8 +46,11 @@ androidx-activity = { group = "androidx.activity", name = "activity-ktx", versio
 # Android-View
 constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.0-alpha2"
 activity-ktx = "androidx.activity:activity-ktx:1.3.0-alpha03"
-lifecycle-viewmodel-extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
+
+# Lifecycle
+lifecycle-viewmodel-extensions = { module =  "androidx.lifecycle:lifecycle-extensions", version.ref = "lifecycle" }
+lifecycle-viewmodel-ktx = { module =  "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-runtime-compose = { module =  "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 
 #Compose
 compose-material3 = { module = "androidx.compose.material3:material3", version = "1.0.0-alpha15" }

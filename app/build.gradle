@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.lifecycle.viewmodel.extensions)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.runtime.compose)
 
     implementation(libs.bundles.compose)
     implementation(libs.bundles.retrofit)
