@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -39,7 +40,7 @@ import com.datikaa.themoviedbapp.ui.home.HomeViewModel
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun HomeComposable(viewModel: HomeViewModel) {
-    val itemsState = viewModel.upcomingMovies.collectAsStateWithLifecycle(emptyList())
+    val itemsState by viewModel.upcomingMovies.collectAsStateWithLifecycle(emptyList())
 
     Scaffold(
         topBar = {
@@ -58,7 +59,7 @@ fun HomeComposable(viewModel: HomeViewModel) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(it)
         ) {
-            items(itemsState.value) { movies ->
+            items(itemsState) { movies ->
                 HomeItemComposable(upcomingMovie = movies)
             }
         }
