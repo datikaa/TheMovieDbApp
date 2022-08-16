@@ -40,7 +40,7 @@ import com.datikaa.themoviedbapp.ui.home.HomeViewModel
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun HomeComposable(viewModel: HomeViewModel) {
-    val itemsState by viewModel.upcomingMovies.collectAsStateWithLifecycle(emptyList())
+    val upcomingMovies by viewModel.upcomingMovies.collectAsStateWithLifecycle(emptyList())
 
     Scaffold(
         topBar = {
@@ -59,8 +59,8 @@ fun HomeComposable(viewModel: HomeViewModel) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(it)
         ) {
-            items(itemsState) { movies ->
-                HomeItemComposable(upcomingMovie = movies)
+            items(upcomingMovies) { movie ->
+                HomeItemComposable(upcomingMovie = movie)
             }
         }
     }
