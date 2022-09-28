@@ -1,3 +1,4 @@
+@file:Suppress("UnstableApiUsage", "DSL_SCOPE_VIOLATION")
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
@@ -9,12 +10,13 @@ plugins {
 
 
 android {
-    compileSdk = 32
+    compileSdk = 33
+    namespace = "com.datikaa.themoviedbapp"
 
     defaultConfig {
         applicationId = "com.datikaa.themoviedbapp"
         minSdk = 27
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -33,20 +35,12 @@ android {
         it.buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
     buildFeatures {
         compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.0-rc02"
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 }
 

@@ -3,6 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }
 dependencyResolutionManagement {
@@ -11,9 +12,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }
 
-enableFeaturePreview("VERSION_CATALOGS")
-
 include("app")
+include(":snapshots")
