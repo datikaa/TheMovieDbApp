@@ -3,6 +3,7 @@ package com.datikaa.themoviedbapp
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.MaterialTheme
 import androidx.core.view.WindowCompat
 import com.datikaa.themoviedbapp.ui.compose.HomeComposable
 import com.datikaa.themoviedbapp.ui.home.HomeViewModel
@@ -16,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            HomeComposable(viewModel)
+            MaterialTheme {
+                HomeComposable(viewModel)
+            }
         }
     }
 }

@@ -15,7 +15,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -25,9 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -76,17 +76,27 @@ fun HomeItemComposable(upcomingMovie: UpcomingMovie) {
                 placeholder = painterResource(id = R.drawable.pic_loading_placeholder),
                 modifier = Modifier.fillMaxWidth(),
             )
-            Text(
-                style = TextStyle(color = Color.White, fontSize = 32.sp),
-                text = upcomingMovie.title ?: "",
-                modifier = Modifier.align(Alignment.TopStart).padding(8.dp)
-
-            )
-            Text(
-                color = Color.White,
-                text = upcomingMovie.id.toString(),
-                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)
-            )
+            Surface(
+                modifier = Modifier.align(Alignment.TopStart),
+                color = Color.Black.copy(alpha = 0.5f),
+            ) {
+                Text(
+                    color = Color.White,
+                    text = upcomingMovie.title ?: "",
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+            Surface(
+                modifier = Modifier.align(Alignment.BottomEnd),
+                color = Color.Black.copy(alpha = 0.5f),
+            ) {
+                Text(
+                    color = Color.White,
+                    style = MaterialTheme.typography.labelSmall,
+                    text = upcomingMovie.id.toString(),
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
         }
     }
 }
