@@ -1,6 +1,7 @@
 package com.datikaa.themoviedbapp.ui.compose
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -19,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -26,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -67,34 +68,24 @@ fun HomeComposable(viewModel: HomeViewModel) {
 @Composable
 fun HomeItemComposable(upcomingMovie: UpcomingMovie) {
     Card(modifier = Modifier.aspectRatio(1.77f)) {
-
-        AsyncImage(
-            model = ImagesBaseUrl + PicSizeW500 + upcomingMovie.backdrop_path,
-            contentScale = ContentScale.Crop,
-            contentDescription = null,
-            placeholder = painterResource(id = R.drawable.pic_loading_placeholder),
-            modifier = Modifier.fillMaxWidth(),
-        )
-        ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-            val (title, id) = createRefs()
-
+        Box(modifier = Modifier.fillMaxSize()) {
+            AsyncImage(
+                model = ImagesBaseUrl + PicSizeW500 + upcomingMovie.backdrop_path,
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                placeholder = painterResource(id = R.drawable.pic_loading_placeholder),
+                modifier = Modifier.fillMaxWidth(),
+            )
             Text(
                 style = TextStyle(color = Color.White, fontSize = 32.sp),
                 text = upcomingMovie.title ?: "",
-                modifier = Modifier
-                    .constrainAs(title) {
-                        top.linkTo(parent.top, margin = 0.dp)
-                        start.linkTo(parent.start, margin = 12.dp)
-                    }
+                modifier = Modifier.align(Alignment.TopStart).padding(8.dp)
+
             )
             Text(
                 color = Color.White,
                 text = upcomingMovie.id.toString(),
-                modifier = Modifier
-                    .constrainAs(id) {
-                        bottom.linkTo(parent.bottom, margin = 8.dp)
-                        end.linkTo(parent.end, margin = 8.dp)
-                    }
+                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)
             )
         }
     }
