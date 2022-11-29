@@ -1,61 +1,61 @@
 [versions]
-android-plugin = "7.3.0"
-kotlin = "1.7.10"
+android-plugin = "8.0.0-alpha08"
+androidx-activity = "1.5.1"
+androidx-appcompat = "1.4.2"
+androidx-core = "1.8.0"
+com-squareup-moshi = "1.13.0"
 compose = "1.2.1"
 compose-compiler = "1.3.0"
-compose-material3 = "1.0.0-beta03"
-kotlin-ksp = "1.7.10-1.0.6"
+compose-material3 = "1.1.0-alpha02"
 # KotlinX
 coroutines = "1.6.4"
 # Core
 koin = "3.2.0"
-androidx-core = "1.8.0"
-androidx-appcompat = "1.4.2"
-androidx-activity = "1.5.1"
+kotlin = "1.8.0-Beta"
+kotlin-ksp = "1.8.0-Beta-1.0.8"
 #Screenshot testing
 paparazzi = "1.0.0"
 #Retrofit
 retrofit = "2.9.0"
-com-squareup-moshi = "1.13.0"
 
 [libraries]
-# KotlinX
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+activity-compose = "androidx.activity:activity-compose:1.5.1"
+activity-ktx = "androidx.activity:activity-ktx:1.3.0-alpha03"
+androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 # Core
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
-androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
-# Android-View
-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.0-alpha2"
-activity-ktx = "androidx.activity:activity-ktx:1.3.0-alpha03"
-# Lifecycle
-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
-lifecycle-runtime-compose = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01"
+#Coil
+coil = "io.coil-kt:coil-compose:2.1.0"
+compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
+compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
+compose-constraintlayout = "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 #Compose
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-constraintlayout = "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+compose-ui = "androidx.compose.ui:ui:1.4.0-alpha02"
 compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
-activity-compose = "androidx.activity:activity-compose:1.5.1"
-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
+# Android-View
+constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0-alpha04"
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+# KotlinX
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 #Koin
 koin = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+lifecycle-runtime-compose = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03"
+lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
+# Lifecycle
+lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha03"
+#Moshi
+moshi = { module = "com.squareup.moshi:moshi", version.ref = "com-squareup-moshi" }
+moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "com-squareup-moshi" }
 #Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 retrofit-logging-interceptor = "com.squareup.okhttp3:logging-interceptor:4.9.0"
-#Moshi
-moshi = { module = "com.squareup.moshi:moshi", version.ref = "com-squareup-moshi" }
-moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "com-squareup-moshi" }
-#Coil
-coil = "io.coil-kt:coil-compose:2.1.0"
 
 [bundles]
 compose = [
@@ -78,9 +78,8 @@ retrofit = [
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-plugin" }
+gradle-catalog-updater = "nl.littlerobots.version-catalog-update:0.6.1"
+gradle-versions = "com.github.ben-manes.versions:0.41.0"
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
-gradle-versions = "com.github.ben-manes.versions:0.41.0"
-gradle-catalog-updater = "nl.littlerobots.version-catalog-update:0.6.1"
